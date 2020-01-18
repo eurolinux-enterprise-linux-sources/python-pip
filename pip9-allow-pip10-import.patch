@@ -1,0 +1,16 @@
+--- /usr/bin/pip3	2018-03-29 15:22:13.000000000 +0200
++++ pip3	2018-05-04 11:49:08.098821010 +0200
+@@ -4,7 +4,12 @@
+ import re
+ import sys
+ 
+-from pip import main
++try:
++    from pip import main
++except ImportError:
++    # user has most probably upgraded pip in their home
++    # so let them run it anyway until ~/.local/bin makes it in front of the PATH
++    from pip._internal import main
+ 
+ if __name__ == '__main__':
+     sys.argv[0] = re.sub(r'(-script\.pyw?|\.exe)?$', '', sys.argv[0])
